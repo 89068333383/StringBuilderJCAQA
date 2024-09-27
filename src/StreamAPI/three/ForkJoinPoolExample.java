@@ -1,4 +1,4 @@
-package StreamAPI;
+package StreamAPI.three;
 
 import java.math.BigInteger;
 import java.util.concurrent.ForkJoinPool;
