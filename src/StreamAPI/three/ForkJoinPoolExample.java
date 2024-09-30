@@ -18,17 +18,19 @@ public class ForkJoinPoolExample {
     }
 
     private static class FactorialTask extends RecursiveTask<Long> {
-        private int n;
+        private long n;
         @Override
         protected Long compute() {
             if (n <=1 ) {
                 return 1l;
             }
-            return IntStream.rangeClosed(2, n).mapToObj(BigInteger::valueOf).reduce(BigInteger::multiply).get().longValue();
-
+//            return IntStream.rangeClosed(2, n).mapToObj(BigInteger::valueOf).reduce(BigInteger::multiply).get().longValue();
+            FactorialTask factorialTask = new FactorialTask(n-1);
+            factorialTask.fork();
+            return factorialTask.join()*n;
         }
 
-        public FactorialTask(int n) {
+        public FactorialTask(long n) {
             this.n = n;
         }
     }
